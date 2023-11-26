@@ -3,13 +3,13 @@ from datetime import datetime, timedelta
 
 def send_otp(request):
     # Generate random secret
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=60)
+    totp = pyotp.TOTP(pyotp.random_base32(), interval=30)
     otp = totp.now() # The otp that should be inputted by the user
     
     request.session['otp_secret_key'] = totp.secret  # store the secret key in the user session
      
     # set expiration time for the otp
-    valid_until = datetime.now() + timedelta(minutes=1)
+    valid_until = datetime.now() + timedelta(seconds=30)
     
     request.session['otp_valid_until'] = str(valid_until) 
     

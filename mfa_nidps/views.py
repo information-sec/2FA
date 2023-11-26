@@ -36,7 +36,7 @@ def otp_view(request):
             valid_until = datetime.fromisoformat(otp_valid_until)
             
             if valid_until > datetime.now():
-                totp = pyotp.TOTP(otp_secret_key, interval=60)
+                totp = pyotp.TOTP(otp_secret_key, interval=30)
                 if totp.verify(otp):
                     user = get_object_or_404(User, username=username)
                     login(request, user)
